@@ -6,11 +6,47 @@
             "name"       : "UBS Client Mobile",
             "startDate"  : "19/05/2014",
             "endDate"    : null,
-            "description": "Принимаю участие в разработке мобильного банковского приложения",
-            "image"      : "img/UBS_Logo.svg",
-            "skills": [
-                "backbone", "requirejs", "handlebars", "sass", "grunt"
+            "description": "Принимаю участие в разработке мобильного банковского приложения на Backbone.js",
+            "image"      : "img/projects/UBS_Logo.svg",
+            "skills"     : [
+                "backbone", "require", "handlebars", "sass", "grunt"
+            ]
+        },
+        {
+            "id"         : 2,
+            "name"       : "Мобильная Zona",
+            "url"        : "http://zona.mobi",
+            "startDate"  : "1/03/2014",
+            "endDate"    : "16/05/2014",
+            "description": "Разрабатывал прототип и делал первую релизную версию. Первый релизный проект на Ангуляре",
+            "image"      : "img/projects/zona.png",
+            "skills"     : [
+                "angular", "handlebars", "sass", "grunt"
+            ]
+        },
+        {
+            "id"         : 3,
+            "name"       : "Zona",
+            "url"        : "http://zona.ru",
+            "startDate"  : "1/09/2011",
+            "endDate"    : "16/05/2014",
+            "description": "Принимал участие в разработке программы. Верстал, джаваскриптил. Всё в основном сделано было на jQuery.\nВообще с Зоной было много экспериментов, это на сегодняшний день самый продолжительный проект с моим участием. Был опыт работы с XUL и ActionScript, даже экспериментировал с Samsung SmartTV.\nУже ближе к 2014 году, попробовал сделать версию на Backbone.js, но она так и не дошла до релиза.",
+            "image"      : "img/projects/zona.png",
+            "skills"     : [
+                "angular", "handlebars", "sass", "grunt"
+            ]
+        },
+        {
+            "id"         : 4,
+            "name"       : "SMS-Maska.ru",
+            "url"        : "http://sms-maska.ru",
+            "startDate"  : "30/06/2010",
+            "endDate"    : "1/01/2009",
+            "description": "Работал full-stack разработчиком. Писал на PHP и JavaScript'е. Использовал Kohana, MySQL и разные штуки на основе jQuery",
+            "skills"     : [
+                "php", "jquery", "jqueryui", "kohana", "mysql"
             ]
         }
+
     ]
 }

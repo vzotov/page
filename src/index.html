@@ -10,18 +10,32 @@
     <script src="js/lib/underscore.js"></script>
     <script src="../build/js/app.js"></script>
 </head>
-<body>
-
+<body ng-controller="appController">
+<div class="wrapper">
     <header>
-        <nav>
-            <a href="#/">Обо мне</a>
-            <a href="#/projects">Проекты</a>
-        </nav>
+        <div class="center-wrapper">
+            <div class="logo">
+                <a href="#/" ng-hide="isHomePage">Владимир Зотов</a>
+                <span ng-show="isHomePage">Владимир Зотов</span>
+            </div>
+            <nav>
+                <a href="#/about">Обо мне</a>
+                <a href="#/projects">Проекты</a>
+            </nav>
+        </div>
     </header>
-    <main ng-view>
-
+    <main>
+        <div ng-view class="center-wrapper">
+        </div>
     </main>
-    <footer></footer>
+</div>
+<footer>
+    <div class="center-wrapper">
+        Почта: <a href="mailto:vladimir.zotov@gmail.com">vladimir.zotov@gmail.com</a>
+        <br/>
+        Твиттер: <a href="http://twitter.com/vzotov" target="_blank">@vzotov</a>
+    </div>
+</footer>
 <script src="http://192.168.0.103:9000/livereload.js"></script>
 </body>
 </html>

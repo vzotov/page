@@ -20,6 +20,31 @@
             "id"  : "angular",
             "name": "AngularJS",
             "logo": "angularjs-logo.png"
+        },
+        {
+            "id"  : "grunt",
+            "name": "Grunt",
+            "logo": "grunt-logo.png"
+        },
+        {
+            "id"  : "jquery",
+            "name": "jQuery",
+            "logo": "jquery-logo.png"
+        },
+        {
+            "id"  : "jqueryui",
+            "name": "jQuery UI",
+            "logo": "jqueryui-logo.png"
+        },
+        {
+            "id"  : "sass",
+            "name": "SASS (SCSS)",
+            "logo": "sass.png"
+        },
+        {
+            "id"  : "handlebars",
+            "name": "Handlebars",
+            "logo": "handlebars_logo.png"
         }
     ]
 }

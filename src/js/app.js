@@ -5,13 +5,27 @@ app.config( ['$routeProvider',
     function ( $routeProvider ) {
         $routeProvider.
             when( '/', {
-                templateUrl: 'partials/home-page.html'
+                templateUrl: 'partials/home-page.html',
+                isHomePage: true
+            } ).
+            when( '/about', {
+                templateUrl: 'partials/about.html'
             } ).
             when( '/projects', {
                 templateUrl: 'partials/projects.html',
                 controller : 'projectsController'
             } ).
             otherwise( {
-                redirectTo: '/404'
+                redirectTo: '/'
             } );
+
+
+    }] );
+
+app.controller( 'appController', [
+    '$scope', '$rootScope', '$route', 'projectsData', 'skillsData',
+    function ( $scope, $rootScope, $route, projectsData, skillsData ) {
+        $scope.$on('$routeChangeStart', function(next, current) {
+            $rootScope.isHomePage = current.$$route.isHomePage;
+        });
     }] );
