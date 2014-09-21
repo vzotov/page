@@ -1,0 +1,81 @@
+html, body {
+  font: 14px/1.5em 'PT Sans', Helvetica, Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+header {
+  padding: 16px 0;
+  display: block;
+  background-color: rgba(82, 140, 224, 0.02);
+  box-shadow: 0 1px 3px rgba(204, 204, 204, 0.2);
+}
+header nav {
+  display: flex;
+  margin: 0 auto;
+}
+header nav a {
+  display: inline-block;
+  margin-right: 16px;
+}
+header .logo {
+  font-size: 1.143em;
+  margin-bottom: 16px;
+}
+
+.center-wrapper {
+  width: 1024px;
+  margin: 0 auto;
+}
+
+.wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  padding-bottom: 4em;
+}
+
+footer {
+  margin-top: -4em;
+  min-height: 4em;
+}
+
+.projects-page .project {
+  padding: 16px;
+  display: flex;
+}
+.projects-page .project:hover {
+  background-color: rgba(82, 140, 224, 0.1);
+}
+.projects-page .project-image {
+  display: inline-block;
+  flex: 0 0 100px;
+  vertical-align: middle;
+}
+.projects-page .project-image img {
+  width: 100px;
+}
+.projects-page .project-description {
+  display: inline-block;
+  vertical-align: middle;
+  flex: 0 1 auto;
+  padding-left: 16px;
+}
+.projects-page .project-skills {
+  display: none;
+}
+.projects-page .project-skill {
+  display: inline-block;
+}
+
+/*# sourceMappingURL=main.css.map */
