@@ -1,12 +1,12 @@
 <div class="projects-page">
     Projects
     <ul>
-        <li class="project">
+        <li class="project" ng-repeat="project in projects">
             <div class="project-image">
-                <img src="img/UBS_Logo.svg" width="100">
+                <img ng-src="{{project.image}}" width="100">
             </div>
             <div class="project-description">
-                Принимаю участие в разработке мобильного банковского приложения
+                {{project.description}}
             </div>
         </li>
     </ul>

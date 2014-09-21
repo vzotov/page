@@ -1,15 +1,17 @@
-var app = angular.module('app', ['ngRoute']);
+var app = angular.module( 'app', ['ngRoute', 'ngResource', 'jsonService'] );
 
-app.config(['$routeProvider',
-    function($routeProvider) {
+app.config( ['$routeProvider',
+    '$resourceProvider',
+    function ( $routeProvider ) {
         $routeProvider.
-            when('/', {
+            when( '/', {
                 templateUrl: 'partials/home-page.html'
-            }).
-            when('/projects', {
-                templateUrl: 'partials/projects.html'
-            }).
-            otherwise({
+            } ).
+            when( '/projects', {
+                templateUrl: 'partials/projects.html',
+                controller : 'projectsController'
+            } ).
+            otherwise( {
                 redirectTo: '/404'
-            });
-    }]);
+            } );
+    }] );

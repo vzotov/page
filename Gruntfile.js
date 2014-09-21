@@ -6,12 +6,16 @@ module.exports = function(grunt) {
         sass:{
             dist: {                            // Target
                 options: {                       // Target options
-                    style: 'expanded'
+                    style: 'expanded',
+                    sourcemap: true
                 },
                 files: {                         // Dictionary of files
-                    'src/css/main.css': 'src/scss/all.scss'       // 'destination': 'source'
+                    'build/css/main.css': 'src/scss/all.scss'       // 'destination': 'source'
                 }
             }
+        },
+        jshint:{
+            src: ['src/js/*.js']
         },
         watch: {
             options: {
@@ -23,12 +27,27 @@ module.exports = function(grunt) {
             },
             html: {
                 files: 'src/**/*.html'
+            },
+            js: {
+                files: 'src/js/**/*.js',
+                tasks: ['jshint', 'concat']
+            }
+        },
+        concat: {
+            js:{
+                src: ['src/js/*.js'],
+                dest: 'build/js/app.js'
+            },
+            options: {
+                sourceMap: true
             }
         }
     });
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-concat');
     // Default task(s).
-    grunt.registerTask('default', []);
+    grunt.registerTask('default', ['sass', 'jshint', 'concat', 'watch']);
 
 };
