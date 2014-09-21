@@ -1,0 +1,25 @@
+{
+    "success": true,
+    "data"   : [
+        {
+            "id"  : "backbone",
+            "name": "Backbone.js",
+            "logo": "backbone.png"
+        },
+        {
+            "id"  : "require",
+            "name": "Require.js",
+            "logo": "require-js_logo.png"
+        },
+        {
+            "id"  : "underscore",
+            "name": "Underscore.js",
+            "logo": "underscore.png"
+        },
+        {
+            "id"  : "angular",
+            "name": "AngularJS",
+            "logo": "angularjs-logo.png"
+        }
+    ]
+}

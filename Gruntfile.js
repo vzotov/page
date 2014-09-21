@@ -30,7 +30,7 @@ module.exports = function(grunt) {
             },
             js: {
                 files: 'src/js/**/*.js',
-                tasks: ['jshint', 'concat']
+                tasks: ['concat', 'jshint']
             }
         },
         concat: {
@@ -48,6 +48,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-concat');
     // Default task(s).
-    grunt.registerTask('default', ['sass', 'jshint', 'concat', 'watch']);
+    grunt.registerTask('default', ['sass', 'concat', 'jshint', 'watch']);
 
 };
