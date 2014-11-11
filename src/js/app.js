@@ -15,11 +15,17 @@ app.config( ['$routeProvider',
                 templateUrl: 'partials/projects.html',
                 controller : 'projectsController'
             } ).
+            when( '/products', {
+                templateUrl: 'partials/products.html',
+                controller : 'productsController'
+            } ).
+            when( '/product/:id', {
+                templateUrl: 'partials/product.html',
+                controller : 'productsController'
+            } ).
             otherwise( {
                 redirectTo: '/'
             } );
-
-
     }] );
 
 app.controller( 'appController', [
