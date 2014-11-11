@@ -12,7 +12,8 @@
     <div ng-if="product.comments.length == 0">No comments here! You can add a new one right here:</div>
     <form ng-submit="addComment()">
         <input ng-model="comment"
-               type="text"/>
+               type="text"
+               placeholder="Comment"/>
 
         <input type="submit" value="+"/>
     </form>
