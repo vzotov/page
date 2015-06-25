@@ -30,14 +30,11 @@ app.controller( 'appController', [
 angular.module( 'jsonService', ['ngResource'] )
     .factory( 'JSONData', ['$resource',
         function ( $resource ) {
-            var resources = {},
-                jsonData = function ( fileName ) {
-                    return $resource( ['/page/data/resources/', fileName, '.json'].join( '' ) ).get().$promise;
-                };
+            var resources = {};
 
             return function ( fileName ) {
                 if ( !resources[fileName] ) {
-                    resources[fileName] = new jsonData( fileName );
+                    resources[fileName] = $resource( ['/page/data/resources/', fileName, '.json'].join( '' ) ).get().$promise;
                 }
                 return resources[fileName];
             };
