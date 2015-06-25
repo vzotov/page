@@ -39,8 +39,8 @@ angular.module( 'jsonService', ['ngResource'] )
                 return resources[fileName];
             };
         }] );
-app.controller( 'projectsController', ['$scope', 'JSONData', function ( $scope, JSONData ) {
-    var scopeProjects = [],
+app.controller( 'projectsController', ['$scope', '$q', 'JSONData', function ( $scope, $q, JSONData ) {
+    var scopeProjects,
         mergeProjectsAndSkills = function ( projects, skills ) {
             projects.forEach( function ( project ) {
                 project.skills = _.map( project.skills, function ( skillId ) {
@@ -54,16 +54,23 @@ app.controller( 'projectsController', ['$scope', 'JSONData', function ( $scope, 
                 } );
             } );
             return projects;
+        },
+        getProjects = function () {
+            return JSONData( 'projects' );
+        },
+        getSkills = function () {
+            return JSONData( 'skills' );
+        },
+        renderProjects = function (projectsData) {
+            $scope.projects = projectsData.data;
+        },
+        renderSkills = function (skillsData) {
+            $scope.projects = mergeProjectsAndSkills( $scope.projects, skillsData.data );
         };
 
-    JSONData( 'projects' )
-        .then( function ( projects ) {
-            scopeProjects = projects.data;
-            JSONData( 'skills' )
-                .then( function ( skills ) {
-                    $scope.projects = mergeProjectsAndSkills( scopeProjects, skills.data );
-                } );
-        } );
-
+    getProjects()
+        .then( renderProjects )
+        .then( getSkills )
+        .then( renderSkills );
 }] );
 //# sourceMappingURL=app.js.map
