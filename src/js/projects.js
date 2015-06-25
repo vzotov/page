@@ -16,13 +16,11 @@ app.controller( 'projectsController', ['$scope', 'JSONData', function ( $scope, 
         };
 
     JSONData('projects')
-        .get()
         .then( function ( projects ) {
-            scopeProjects = projects;
+            scopeProjects = projects.data;
             JSONData('skills')
-                .get()
                 .then( function ( skills ) {
-                    $scope.projects = mergeProjectsAndSkills( scopeProjects, skills );
+                    $scope.projects = mergeProjectsAndSkills( scopeProjects, skills.data );
                 } );
         } );
 

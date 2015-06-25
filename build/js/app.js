@@ -28,32 +28,11 @@ app.controller( 'appController', [
         } );
     }] );
 angular.module( 'jsonService', ['ngResource'] )
-    .factory( 'JSONData', ['$resource', '$q',
-        function ( $resource, $q ) {
+    .factory( 'JSONData', ['$resource',
+        function ( $resource ) {
             var resources = {},
                 jsonData = function ( fileName ) {
-                    var me = this,
-                        get;
-                    get = function () {
-                        var deferred = $q.defer();
-
-                        if ( !me.jsonData ) {
-                            $resource( ['/page/data/resources/', fileName, '.json'].join( '' ) )
-                                .get( function ( data ) {
-                                    if ( data.success ) {
-                                        me.jsonData = data;
-                                        deferred.resolve( me.jsonData.data );
-                                    }
-                                } );
-                        } else {
-                            deferred.resolve( me.jsonData.data );
-                        }
-
-                        return deferred.promise;
-                    };
-                    return {
-                        get: get
-                    };
+                    return $resource( ['/page/data/resources/', fileName, '.json'].join( '' ) ).get().$promise;
                 };
 
             return function ( fileName ) {
@@ -81,13 +60,11 @@ app.controller( 'projectsController', ['$scope', 'JSONData', function ( $scope, 
         };
 
     JSONData('projects')
-        .get()
         .then( function ( projects ) {
-            scopeProjects = projects;
+            scopeProjects = projects.data;
             JSONData('skills')
-                .get()
                 .then( function ( skills ) {
-                    $scope.projects = mergeProjectsAndSkills( scopeProjects, skills );
+                    $scope.projects = mergeProjectsAndSkills( scopeProjects, skills.data );
                 } );
         } );
 
