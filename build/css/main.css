@@ -42,12 +42,12 @@ header .logo {
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  padding-bottom: 4em;
+  padding-bottom: 5em;
 }
 
 footer {
-  margin-top: -4em;
-  min-height: 4em;
+  margin-top: -5em;
+  min-height: 5em;
 }
 
 .projects-page .project {
