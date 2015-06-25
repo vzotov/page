@@ -3,27 +3,19 @@ var app = angular.module( 'app', ['ngRoute', 'ngResource', 'jsonService'] );
 app.config( ['$routeProvider',
     '$resourceProvider',
     function ( $routeProvider ) {
-        $routeProvider.
-            when( '/', {
+        $routeProvider
+            .when( '/', {
                 templateUrl: 'partials/home-page.html',
                 isHomePage: true
-            } ).
-            when( '/about', {
+            } )
+            .when( '/about', {
                 templateUrl: 'partials/about.html'
-            } ).
-            when( '/projects', {
+            } )
+            .when( '/projects', {
                 templateUrl: 'partials/projects.html',
-                controller : 'projectsController'
-            } ).
-            when( '/products', {
-                templateUrl: 'partials/products.html',
-                controller : 'productsController'
-            } ).
-            when( '/product/:id', {
-                templateUrl: 'partials/product.html',
-                controller : 'productsController'
-            } ).
-            otherwise( {
+                controller: 'projectsController'
+            } )
+            .otherwise( {
                 redirectTo: '/'
             } );
     }] );
@@ -31,7 +23,7 @@ app.config( ['$routeProvider',
 app.controller( 'appController', [
     '$scope', '$rootScope', '$route', 'projectsData', 'skillsData',
     function ( $scope, $rootScope, $route, projectsData, skillsData ) {
-        $scope.$on('$routeChangeStart', function(next, current) {
+        $scope.$on( '$routeChangeStart', function ( next, current ) {
             $rootScope.isHomePage = current.$$route.isHomePage;
-        });
+        } );
     }] );

@@ -3,27 +3,19 @@ var app = angular.module( 'app', ['ngRoute', 'ngResource', 'jsonService'] );
 app.config( ['$routeProvider',
     '$resourceProvider',
     function ( $routeProvider ) {
-        $routeProvider.
-            when( '/', {
+        $routeProvider
+            .when( '/', {
                 templateUrl: 'partials/home-page.html',
                 isHomePage: true
-            } ).
-            when( '/about', {
+            } )
+            .when( '/about', {
                 templateUrl: 'partials/about.html'
-            } ).
-            when( '/projects', {
+            } )
+            .when( '/projects', {
                 templateUrl: 'partials/projects.html',
-                controller : 'projectsController'
-            } ).
-            when( '/products', {
-                templateUrl: 'partials/products.html',
-                controller : 'productsController'
-            } ).
-            when( '/product/:id', {
-                templateUrl: 'partials/product.html',
-                controller : 'productsController'
-            } ).
-            otherwise( {
+                controller: 'projectsController'
+            } )
+            .otherwise( {
                 redirectTo: '/'
             } );
     }] );
@@ -31,9 +23,9 @@ app.config( ['$routeProvider',
 app.controller( 'appController', [
     '$scope', '$rootScope', '$route', 'projectsData', 'skillsData',
     function ( $scope, $rootScope, $route, projectsData, skillsData ) {
-        $scope.$on('$routeChangeStart', function(next, current) {
+        $scope.$on( '$routeChangeStart', function ( next, current ) {
             $rootScope.isHomePage = current.$$route.isHomePage;
-        });
+        } );
     }] );
 angular.module( 'jsonService', ['ngResource'] )
     .factory( 'projectsData', function ( $resource ) {
@@ -62,61 +54,6 @@ angular.module( 'jsonService', ['ngResource'] )
             filter: filterSkills
         };
     } );
-app.controller( 'productsController', ['$scope', '$routeParams', 'products', function ( $scope, $routeParams, products ) {
-    var id = $routeParams.id;
-
-    if ( typeof id !== 'undefined' ) {
-        $scope.product = products.get( id );
-        $scope.addComment = function () {
-            products.addComment( id, $scope.comment );
-            $scope.comment = "";
-        };
-    } else {
-        $scope.products = products.get();
-        $scope.newProduct = {};
-        $scope.add = function () {
-            products.add( $scope.newProduct );
-            $scope.newProduct = {};
-        };
-    }
-}] );
-
-app.factory( 'products', function () {
-    var id = 0,
-        def,
-        add;
-
-    def = [{
-        id         : 0,
-        name       : "Product1",
-        description: "Super product. You should buy it!",
-        comments   : ["wow!", "foo?"]
-    }];
-
-    add = function ( product ) {
-        def.push( {
-            id         : ++id,
-            name       : product.name,
-            description: product.description,
-            comments   : []
-        } );
-    };
-
-
-    return {
-        get       : function ( id ) {
-            if ( id ) {
-                return def[id];
-            } else {
-                return def;
-            }
-        },
-        add       : add,
-        addComment: function ( id, comment ) {
-            this.get( id ).comments.push( comment );
-        }
-    };
-} );
 app.controller( 'projectsController', ['$scope', 'projectsData', 'skillsData', function ( $scope, projectsData, skillsData ) {
     projectsData.get( function ( data ) {
         var projects = [],

@@ -11,31 +11,31 @@
     <script src="../build/js/app.js"></script>
 </head>
 <body ng-controller="appController">
-<div class="wrapper">
-    <header>
-        <div class="center-wrapper">
-            <div class="logo">
-                <a href="#/" ng-hide="isHomePage">Владимир Зотов</a>
-                <span ng-show="isHomePage">Владимир Зотов</span>
+    <div class="wrapper">
+        <header>
+            <div class="center-wrapper">
+                <div class="logo">
+                    <a href="#/" ng-hide="isHomePage">Владимир Зотов</a>
+                    <span ng-show="isHomePage">Владимир Зотов</span>
+                </div>
+                <nav>
+                    <a href="#/about">Обо мне</a>
+                    <a href="#/projects">Проекты</a>
+                </nav>
             </div>
-            <nav>
-                <a href="#/about">Обо мне</a>
-                <a href="#/projects">Проекты</a>
-                <a href="#/products">Wirestorm task here!</a>
-            </nav>
-        </div>
-    </header>
-    <main>
-        <div ng-view class="center-wrapper">
-        </div>
-    </main>
-</div>
-<footer>
-    <div class="center-wrapper">
-        Почта: <a href="mailto:vladimir.zotov@gmail.com">vladimir.zotov@gmail.com</a>
-        <br/>
-        Твиттер: <a href="http://twitter.com/vzotov" target="_blank">@vzotov</a>
+        </header>
+        <main>
+            <div ng-view class="center-wrapper">
+            </div>
+        </main>
     </div>
-</footer>
+    <footer>
+        <div class="center-wrapper">
+            Почта: <a href="mailto:vladimir.zotov@gmail.com">vladimir.zotov@gmail.com</a>
+            <br/>
+            Твиттер: <a href="http://twitter.com/vzotov" target="_blank">@vzotov</a>
+        </div>
+    </footer>
+    <script src="http://localhost:9000/livereload.js"></script>
 </body>
 </html>
