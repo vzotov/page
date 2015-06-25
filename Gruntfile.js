@@ -54,6 +54,6 @@ module.exports = function ( grunt ) {
     grunt.registerTask( 'dev', ['sass', 'concat', 'jshint'] );
 
     grunt.registerTask( 'default', ['dev'] );
-    grunt.registerTask( 'watch', ['sass', 'concat', 'jshint', 'watch'] );
+    grunt.registerTask( 'w', ['sass', 'concat', 'jshint', 'watch'] );
 
 };
