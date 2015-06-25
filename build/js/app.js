@@ -28,48 +28,57 @@ app.controller( 'appController', [
         } );
     }] );
 angular.module( 'jsonService', ['ngResource'] )
-    .factory( 'projectsData', function ( $resource ) {
-        return $resource( '/page/data/resources/projects.json' );
-    } )
-    .factory( 'skillsData', function ( $resource ) {
-        var skills = [],
-            getSkills;
-        $resource( '/page/data/resources/skills.json' ).get( function ( data ) {
-            skills = data.data;
-        } );
+    .factory( 'projectsData', function ( $resource, $q ) {
+        var deferred = $q.defer();
 
-        getSkills = function () {
-            return skills;
-        };
-
-        filterSkills = function ( filterArray ) {
-            var match = _.filter( skills, function ( skill ) {
-                return filterArray.indexOf( skill.id ) >= 0;
+        $resource( '/page/data/resources/projects.json' )
+            .get( function ( data ) {
+                if ( data.success ) {
+                    deferred.resolve( data.data );
+                }
             } );
-            return match;
-        };
 
         return {
-            get   : getSkills,
-            filter: filterSkills
+            get: function () {
+                return deferred.promise;
+            }
+        };
+    } )
+    .factory( 'skillsData', function ( $resource, $q ) {
+        var deferred = $q.defer();
+
+        $resource( '/page/data/resources/skills.json' ).get( function ( data ) {
+            if ( data.success ) {
+                deferred.resolve( data.data );
+            }
+        } );
+
+        return {
+            get: function () {
+                return deferred.promise;
+            }
         };
     } );
 app.controller( 'projectsController', ['$scope', 'projectsData', 'skillsData', function ( $scope, projectsData, skillsData ) {
-    projectsData.get( function ( data ) {
-        var projects = [],
-            skills = [],
-            parsedSkills = [],
-            skill;
-        if ( data.success ) {
-            //parsing skills at project
-            projects = data.data;
-            angular.forEach( projects, function ( project ) {
-                skills = project.skills;
-                project.skills = skillsData.filter( skills );
-                
+    var scopeProjects = [],
+        mergeProjectsAndSkills = function ( projects, skills ) {
+            projects.forEach( function ( project ) {
+                project.skills = _.map( project.skills, function (skillId) {
+                    return _.find(skills, function ( skill ) {
+                        return skill.id === skillId;
+                    }) || {name: skillId};
+                } );
             } );
-            $scope.projects = data.data;
-        }
-    } );
+            return projects;
+        };
+    projectsData
+        .get()
+        .then( function ( projects ) {
+            scopeProjects = projects;
+        } )
+        .then( skillsData.get )
+        .then( function ( skills ) {
+            $scope.projects = mergeProjectsAndSkills( scopeProjects, skills );
+        } );
 }] );
 //# sourceMappingURL=app.js.map

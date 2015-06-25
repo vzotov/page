@@ -51,31 +51,45 @@ footer {
 }
 
 .projects-page .project {
-  padding: 16px;
-  display: flex;
+  padding: 16px 16px 16px 132px;
+  display: block;
+  position: relative;
 }
 .projects-page .project:hover {
   background-color: rgba(82, 140, 224, 0.1);
 }
 .projects-page .project-image {
-  display: inline-block;
-  flex: 0 0 100px;
-  vertical-align: middle;
-}
-.projects-page .project-image img {
+  position: absolute;
+  left: 16px;
+  top: 16px;
   width: 100px;
 }
-.projects-page .project-description {
-  display: inline-block;
-  vertical-align: middle;
-  flex: 0 1 auto;
-  padding-left: 16px;
+.projects-page .project-image img {
+  width: 100%;
+}
+.projects-page .project-description:after {
+  clear: both;
 }
 .projects-page .project-skills {
-  display: none;
+  display: block;
 }
 .projects-page .project-skill {
   display: inline-block;
+}
+.projects-page .project-skill-logo {
+  width: 25px;
+  vertical-align: middle;
+}
+.projects-page .project-skill-name {
+  width: 25px;
+  vertical-align: middle;
+}
+.projects-page .project-skill-name:after {
+  content: ', ';
+  margin-right: 8px;
+}
+.projects-page .project-skill:last-child .project-skill-name:after {
+  content: '';
 }
 
 /*# sourceMappingURL=main.css.map */
