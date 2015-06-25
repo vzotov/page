@@ -28,30 +28,35 @@ app.controller( 'appController', [
         } );
     }] );
 angular.module( 'jsonService', ['ngResource'] )
-    .factory( 'JSONData', function ( $resource, $q ) {
-        var get, jsonData;
-        get = function ( fileName ) {
-            var deferred = $q.defer();
+    .factory( 'JSONData', ['$resource', '$q',
+        function ( $resource, $q ) {
+            var jsonData = function ( fileName ) {
+                var jsonData, get;
+                get = function () {
+                    var deferred = $q.defer();
+                    if ( !jsonData ) {
+                        $resource( ['/page/data/resources/', fileName, '.json'].join( '' ) )
+                            .get( function ( data ) {
+                                if ( data.success ) {
+                                    jsonData = data;
+                                    deferred.resolve( jsonData.data );
+                                }
+                            } );
+                    } else {
+                        deferred.resolve( jsonData.data );
+                    }
 
-            if ( !jsonData ) {
-                $resource( ['/page/data/resources/', fileName, '.json'].join( '' ) )
-                    .get( function ( data ) {
-                        if ( data.success ) {
-                            jsonData = data;
-                            deferred.resolve( jsonData.data );
-                        }
-                    } );
-            } else {
-                deferred.resolve( jsonData.data );
-            }
+                    return deferred.promise;
+                };
+                return {
+                    get: get
+                };
+            };
 
-            return deferred.promise;
-        };
-
-        return {
-            get: get
-        };
-    } );
+            return function ( fileName ) {
+                return new jsonData( fileName );
+            };
+        }] );
 app.controller( 'projectsController', ['$scope', 'JSONData', function ( $scope, JSONData ) {
     var scopeProjects = [],
         mergeProjectsAndSkills = function ( projects, skills ) {
@@ -69,15 +74,17 @@ app.controller( 'projectsController', ['$scope', 'JSONData', function ( $scope, 
             return projects;
         };
 
-    JSONData.get('projects')
+    JSONData('projects')
+        .get()
         .then( function ( projects ) {
             scopeProjects = projects;
-        } )
-        .then( function () {
-           return JSONData.get('skills');
-        } )
-        .then( function ( skills ) {
-            $scope.projects = mergeProjectsAndSkills( scopeProjects, skills );
+            JSONData('skills')
+                .get()
+                .then( function ( skills ) {
+                    $scope.projects = mergeProjectsAndSkills( scopeProjects, skills );
+                } );
         } );
+
+
 }] );
 //# sourceMappingURL=app.js.map
