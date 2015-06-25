@@ -21,45 +21,38 @@ app.config( ['$routeProvider',
     }] );
 
 app.controller( 'appController', [
-    '$scope', '$rootScope', '$route', 'projectsData', 'skillsData',
-    function ( $scope, $rootScope, $route, projectsData, skillsData ) {
+    '$scope', '$rootScope', '$route', 'JSONData',
+    function ( $scope, $rootScope, $route, JSONData ) {
         $scope.$on( '$routeChangeStart', function ( next, current ) {
             $rootScope.isHomePage = current.$$route.isHomePage;
         } );
     }] );
 angular.module( 'jsonService', ['ngResource'] )
-    .factory( 'projectsData', function ( $resource, $q ) {
-        var deferred = $q.defer();
+    .factory( 'JSONData', function ( $resource, $q ) {
+        var get, jsonData;
+        get = function ( fileName ) {
+            var deferred = $q.defer();
 
-        $resource( '/page/data/resources/projects.json' )
-            .get( function ( data ) {
-                if ( data.success ) {
-                    deferred.resolve( data.data );
-                }
-            } );
-
-        return {
-            get: function () {
-                return deferred.promise;
+            if ( !jsonData ) {
+                $resource( ['/page/data/resources/', fileName, '.json'].join( '' ) )
+                    .get( function ( data ) {
+                        if ( data.success ) {
+                            jsonData = data;
+                            deferred.resolve( jsonData.data );
+                        }
+                    } );
+            } else {
+                deferred.resolve( jsonData.data );
             }
+
+            return deferred.promise;
         };
-    } )
-    .factory( 'skillsData', function ( $resource, $q ) {
-        var deferred = $q.defer();
-
-        $resource( '/page/data/resources/skills.json' ).get( function ( data ) {
-            if ( data.success ) {
-                deferred.resolve( data.data );
-            }
-        } );
 
         return {
-            get: function () {
-                return deferred.promise;
-            }
+            get: get
         };
     } );
-app.controller( 'projectsController', ['$scope', 'projectsData', 'skillsData', function ( $scope, projectsData, skillsData ) {
+app.controller( 'projectsController', ['$scope', 'JSONData', function ( $scope, JSONData ) {
     var scopeProjects = [],
         mergeProjectsAndSkills = function ( projects, skills ) {
             projects.forEach( function ( project ) {
@@ -76,12 +69,13 @@ app.controller( 'projectsController', ['$scope', 'projectsData', 'skillsData', f
             return projects;
         };
 
-    projectsData
-        .get()
+    JSONData.get('projects')
         .then( function ( projects ) {
             scopeProjects = projects;
         } )
-        .then( skillsData.get )
+        .then( function () {
+           return JSONData.get('skills');
+        } )
         .then( function ( skills ) {
             $scope.projects = mergeProjectsAndSkills( scopeProjects, skills );
         } );

@@ -1,4 +1,4 @@
-app.controller( 'projectsController', ['$scope', 'projectsData', 'skillsData', function ( $scope, projectsData, skillsData ) {
+app.controller( 'projectsController', ['$scope', 'JSONData', function ( $scope, JSONData ) {
     var scopeProjects = [],
         mergeProjectsAndSkills = function ( projects, skills ) {
             projects.forEach( function ( project ) {
@@ -15,12 +15,13 @@ app.controller( 'projectsController', ['$scope', 'projectsData', 'skillsData', f
             return projects;
         };
 
-    projectsData
-        .get()
+    JSONData.get('projects')
         .then( function ( projects ) {
             scopeProjects = projects;
         } )
-        .then( skillsData.get )
+        .then( function () {
+           return JSONData.get('skills');
+        } )
         .then( function ( skills ) {
             $scope.projects = mergeProjectsAndSkills( scopeProjects, skills );
         } );

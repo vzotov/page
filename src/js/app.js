@@ -21,8 +21,8 @@ app.config( ['$routeProvider',
     }] );
 
 app.controller( 'appController', [
-    '$scope', '$rootScope', '$route', 'projectsData', 'skillsData',
-    function ( $scope, $rootScope, $route, projectsData, skillsData ) {
+    '$scope', '$rootScope', '$route', 'JSONData',
+    function ( $scope, $rootScope, $route, JSONData ) {
         $scope.$on( '$routeChangeStart', function ( next, current ) {
             $rootScope.isHomePage = current.$$route.isHomePage;
         } );

@@ -1,32 +1,25 @@
 angular.module( 'jsonService', ['ngResource'] )
-    .factory( 'projectsData', function ( $resource, $q ) {
-        var deferred = $q.defer();
+    .factory( 'JSONData', function ( $resource, $q ) {
+        var get, jsonData;
+        get = function ( fileName ) {
+            var deferred = $q.defer();
 
-        $resource( '/page/data/resources/projects.json' )
-            .get( function ( data ) {
-                if ( data.success ) {
-                    deferred.resolve( data.data );
-                }
-            } );
-
-        return {
-            get: function () {
-                return deferred.promise;
+            if ( !jsonData ) {
+                $resource( ['/page/data/resources/', fileName, '.json'].join( '' ) )
+                    .get( function ( data ) {
+                        if ( data.success ) {
+                            jsonData = data;
+                            deferred.resolve( jsonData.data );
+                        }
+                    } );
+            } else {
+                deferred.resolve( jsonData.data );
             }
+
+            return deferred.promise;
         };
-    } )
-    .factory( 'skillsData', function ( $resource, $q ) {
-        var deferred = $q.defer();
-
-        $resource( '/page/data/resources/skills.json' ).get( function ( data ) {
-            if ( data.success ) {
-                deferred.resolve( data.data );
-            }
-        } );
 
         return {
-            get: function () {
-                return deferred.promise;
-            }
+            get: get
         };
     } );
